@@ -1,29 +1,46 @@
 org 7E00h
 GLOBAL:
+mov [BOOT_DISK],dl
 jmp START_K
 ;-----------------------------------------------------------
     include 'INCLUDES\MACROS.INC'
     include 'INCLUDES\BASE_FUNCTIONS.INC'
     include 'INCLUDES\INTERRUPT_HANDLER_RETURN.INC'
     include 'INCLUDES\MAIN_INTERRUPT_HANDLER.INC'
+    include 'INCLUDES\KEYBOARD.INC'
     include 'INCLUDES\CONST.INC'
 ;-----------------------------------------------------------
 START_K:
 SET_INTERRUPT_HANDLER 90H,MAIN_INTERRUPT_HANDLER
 SET_INTERRUPT_HANDLER 91H,INTERRUPT_HANDLER_RETURN
+LOAD_TABLE_FILES TABLE_FILES,[BOOT_DISK]
+PRINT HELLO_WORLD, BLACK
 MAIN:
-PRINTSF HELLO_WORLD, BLACK
+NEW_LINE
+PRINT INPUT_STR, BLACK
+GET_STRING BUFFER, 13
+SEACH_FILE TABLE_FILES, BUFFER
+cmp ax,0
+je MAIN
 
-jmp $
+
+cmp ah,1
+je START_PROGRAMM
+
+je MAIN
+
+START_PROGRAMM:
+    LOAD_FILE ch, cl, al, 0000, 0500h
+    NEW_LINE
+jmp 0000:0500h
 
 RETURN_INT:
-
+    jmp MAIN
 ;сюда передает управление int 91h
-
 jmp $
-
-jmp MAIN
-PRINTSF HELLO_WORLD, BLACK
-JMP $
-HELLO_WORLD: stringf "Hello world!"
+HELLO_WORLD: string "WaaOS Loaded, Hello! =)"
+INPUT_STR: string "user:>"
+BOOT_DISK: db 0
+BUFFER: db 13 dup(0)
+TABLE_FILES:
 CALC_SIZE SIZE_KERNEL, GLOBAL
