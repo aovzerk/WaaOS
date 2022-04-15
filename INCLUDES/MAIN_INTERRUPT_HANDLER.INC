@@ -53,7 +53,7 @@ je HF_SEACH_FILE
 cmp ah,11h
 je HF_LOAD_FILE
 
-;-|-in - es=segment, bx=metka, dl=disk
+;-|-in - es=segment, bx=metka
 ; |-out - (load file table on ram)
 cmp ah,12h
 je HF_LOAD_TABLE_FILES

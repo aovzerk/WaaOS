@@ -85,12 +85,11 @@ macro CMP_STRING STR1, STR2
     mov ah,09h
     int 90h
 }
-macro LOAD_TABLE_FILES METKA, DISK
+macro LOAD_TABLE_FILES METKA
 {
     push cs
     pop es
     mov bx,METKA
-    mov dl,DISK
     mov ah,12h
     int 90h
 }

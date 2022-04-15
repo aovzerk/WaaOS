@@ -226,11 +226,12 @@ ret
 
 ;-------------------Загрузка таблицы файлов-------------------------------------------------------------------------------------
 
-;-|-in - es=segment, bx=metka, dl=disk
+;-|-in - es=segment, bx=metka
 ; |-out - (load file table on ram)
 F_LOAD_TABLE_FILES:
 	mov ah,02h
 	mov dh,0
+	mov dl,[BOOT_DISK]
 	mov ch,0
 	mov cl,2
 	mov al,1
