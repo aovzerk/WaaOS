@@ -61,6 +61,20 @@ je HF_LOAD_TABLE_FILES
 cmp ah,13h;al-char
 je HF_PRINT_CHAR
 
+cmp ah,14h;out = AL-ASCII AH-scancode
+je HF_GET_KEY
+
+cmp ah,15h;out= dh,dl - string,char ch,cl=нач.и кончеч строки курсора
+je HF_GET_CURSOR
+
+;in: dh - golovka
+;	 ch - dorogka
+;	 cl - sector
+;	 al - num sectors
+;	 es:bx - куда грузить
+cmp ah,16h
+je HF_LOAD_FILE_AND_START
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret
@@ -115,3 +129,22 @@ iret
 HF_PRINT_CHAR:
     call F_PRINT_CHAR
 iret
+
+HF_GET_CURSOR:
+    call F_GET_CURSOR
+iret
+
+HF_GET_KEY:
+
+    call F_GET_KEY
+iret
+
+HF_LOAD_FILE_AND_START:
+    call F_LOAD_FILE
+    pop ax
+    pop bx
+    pop cx
+    xor ax,ax
+    xor bx,bx
+    xor cx,cx
+    jmp 0000:0500h
