@@ -67,8 +67,7 @@ je HF_GET_KEY
 cmp ah,15h;out= dh,dl - string,char ch,cl=нач.и кончеч строки курсора
 je HF_GET_CURSOR
 
-cmp ah,16h;-|-in - ds:si - daps
-je HF_LOAD_DAPS
+
 
 ;in: dh - golovka
 ;	 ch - dorogka
@@ -77,7 +76,8 @@ je HF_LOAD_DAPS
 ;	 es:bx - куда грузить
 cmp ah,16h
 je HF_LOAD_FILE_AND_START
-
+cmp ah,17h;-|-in - ds:si - daps
+je HF_LOAD_DAPS
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret

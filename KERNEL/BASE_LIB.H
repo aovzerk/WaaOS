@@ -181,7 +181,7 @@ u_char16 load_daps(daps *new_daps){
 
         "push %%cs\n"
         "pop %%ds\n"
-        "mov $0x16, %%ah\n"
+        "mov $0x17, %%ah\n"
         "int $0x90\n"
         : "=a"(status)
         : "S"(new_daps)

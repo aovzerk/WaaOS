@@ -90,7 +90,7 @@ macro LOAD_DAPS DAPS
     push cs
     pop ds
     mov si, DAPS
-    mov ah, 16h
+    mov ah, 17h
     int 90h
 }
 macro LOAD_TABLE_FILES METKA
