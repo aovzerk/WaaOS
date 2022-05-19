@@ -78,7 +78,8 @@ f_string covert_to_string(u_long_int num){
 }
 u_long_int convert_to_number(f_string str){
     u_long_int num = 0;
-    for(u_int16 i = 0; i < str.len; i++){
+    for(u_int16 i = 0; i < 255; i++){
+        if(str.data[i] == 0) break;
         num = (num + (str.data[i] - 0x30)) * 10;
     }
     return num / 10;
