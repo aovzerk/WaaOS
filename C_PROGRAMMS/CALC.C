@@ -7,10 +7,10 @@ void main(void)
         
     f_string my_str = input();
     print(new_line, Black);
-    print((u_char16 *) "Input number2:> ", White);
+    print((u_char8 *) "Input number2:> ", White);
     f_string my_str2 = input();
     print(new_line, Black);
-    print((u_char16 *) "Input operand:> ", White);
+    print((u_char8 *) "Input operand:> ", White);
     f_string my_op = input();
     print(new_line, Black);
     u_long_int my_num1 = convert_to_number(my_str);
@@ -35,6 +35,6 @@ void main(void)
     }
     
     f_string my_str3 = covert_to_string(my_num1);
-    print((u_char16 *)"Result: ", White);
+    print((u_char8 *)"Result: ", White);
     print(my_str3.data, White);
 }

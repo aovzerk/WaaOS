@@ -1,5 +1,5 @@
 #define u_int16 unsigned short int
-#define u_char16 unsigned char
+#define u_char8 unsigned char
 #define u_long_int unsigned long int
 #define u_long_int64 unsigned long long int
 #define White 15
@@ -21,31 +21,31 @@
 asm(".code16gcc\n"
     "call main\n"
     "int $0x91\n");
-u_char16 new_line[] = "\n\r\0";
+u_char8 new_line[] = "\n\r\0";
 struct file
 {
-    u_char16 type;
-    u_char16 track;
-    u_char16 num_sectors;
-    u_char16 sector;
-    u_char16 name[12];
+    u_char8 type;
+    u_char8 track;
+    u_char8 num_sectors;
+    u_char8 sector;
+    u_char8 name[12];
 };
 struct f_string
 {
-    u_char16 len;
-    u_char16 data[255];
+    u_char8 len;
+    u_char8 data[255];
 };
 struct daps
 {
-    u_char16 p_size = 16;
-    u_char16 p_empty = 0;
-    u_char16 p_n_setors;
-    u_char16 p_empty2 = 0;
+    u_char8 p_size = 16;
+    u_char8 p_empty = 0;
+    u_char8 p_n_setors;
+    u_char8 p_empty2 = 0;
     u_int16 p_adres;
     u_int16 p_segment;
     u_long_int64 sector;
 };
-daps create_daps(u_char16 p_n_setors, u_int16 p_adres, u_long_int64 sector){
+daps create_daps(u_char8 p_n_setors, u_int16 p_adres, u_long_int64 sector){
     daps new_daps;
     new_daps.p_n_setors = p_n_setors;
     new_daps.p_adres = p_adres;
@@ -76,11 +76,11 @@ f_string calc_len(f_string str){
     }
     return str;
 }
-void Reverse(u_char16* begin, u_char16* end, u_char16 n)
+void Reverse(u_char8* begin, u_char8* end, u_char8 n)
 {
     if (n > 1)
     {
-        u_char16 t = *begin;
+        u_char8 t = *begin;
         *begin = *end;
         *end = t;
         Reverse(begin + 1, end - 1, n - 2);
@@ -109,7 +109,7 @@ u_long_int convert_to_number(f_string str){
     }
     return num / 10;
 }
-void print(u_char16 *string, u_char16 color)
+void print(u_char8 *string, u_char8 color)
 {
     asm volatile("pusha");
     asm volatile(
@@ -123,11 +123,11 @@ void print(u_char16 *string, u_char16 color)
     );
     asm volatile("popa");
 }
-void print_nl(u_char16 *string, u_char16 color){
+void print_nl(u_char8 *string, u_char8 color){
     print(string, color);
     print(new_line, Black);
 }
-void print_char(u_char16 symbol){
+void print_char(u_char8 symbol){
     asm volatile("pusha");
     asm volatile(
         "mov $0x13, %%ah\n"
@@ -174,8 +174,8 @@ f_string input(){
     my_str = calc_len(my_str);
     return my_str;
 }
-u_char16 load_daps(daps *new_daps){
-    u_char16 status = 0;
+u_char8 load_daps(daps *new_daps){
+    u_char8 status = 0;
     asm volatile("pusha");
     asm volatile(
 
@@ -190,8 +190,8 @@ u_char16 load_daps(daps *new_daps){
     asm volatile("popa");
     return status;
 }
-u_char16 save_daps(daps *new_daps){
-    u_char16 status = 0;
+u_char8 save_daps(daps *new_daps){
+    u_char8 status = 0;
     asm volatile("pusha");
     asm volatile(
         "push %%cs\n"
@@ -205,25 +205,25 @@ u_char16 save_daps(daps *new_daps){
     asm volatile("popa");
     return status;
 }
-u_char16 get_len_str(u_char16 *str){
-    for(u_char16 i = 0; i < 255; i++){
+u_char8 get_len_str(u_char8 *str){
+    for(u_char8 i = 0; i < 255; i++){
         if(str[i] == 0) return i;
     }
 }
-u_char16 cmpstr(u_char16 *str1, u_char16 *str2){
-    u_char16 len_str1 = get_len_str(str1);
-    u_char16 len_str2 = get_len_str(str2);
+u_char8 cmpstr(u_char8 *str1, u_char8 *str2){
+    u_char8 len_str1 = get_len_str(str1);
+    u_char8 len_str2 = get_len_str(str2);
     if(len_str1 != len_str2) return 1;
-    for(u_char16 i = 0; i < len_str1; i++){
+    for(u_char8 i = 0; i < len_str1; i++){
         if(str1[i] != str2[i]) return 1;
     }
     return 0;
 }
-daps get_r_daps_file(u_char16 *str, u_int16 p_adres){
+daps get_r_daps_file(u_char8 *str, u_int16 p_adres){
     file my_files[32];
     load_table_files(my_files);
     daps new_daps;
-    for(u_char16 f = 0; f < 32; f++){
+    for(u_char8 f = 0; f < 32; f++){
         if(cmpstr(str, my_files[f].name) == 0){
             new_daps = create_daps( my_files[f].num_sectors, p_adres, my_files[f].sector);
             return new_daps;
