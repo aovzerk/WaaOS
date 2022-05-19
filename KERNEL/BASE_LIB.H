@@ -204,7 +204,7 @@ u_char16 cmpstr(u_char16 *str1, u_char16 *str2){
     }
     return 0;
 }
-daps get_daps_file(u_char16 *str, u_int16 p_adres){
+daps get_r_daps_file(u_char16 *str, u_int16 p_adres){
     file my_files[32];
     load_table_files(my_files);
     daps new_daps;
