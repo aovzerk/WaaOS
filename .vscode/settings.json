@@ -3,6 +3,8 @@
         "base_lib.h": "c",
         "BASE_LIB.H": "cpp",
         "HELLO_C.C": "cpp",
-        "LS.C": "cpp"
+        "LS.C": "cpp",
+        "TEST_INPUT.C": "cpp",
+        "CALC.C": "cpp"
     }
 }
