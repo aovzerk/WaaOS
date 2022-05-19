@@ -24,7 +24,7 @@ db 4;кол-во секторов
 db 0;null
 dw 07E00h;смещение
 dw 0;сегмент
-dq 2;кол-во
+dq 2;начало
 
 include 'INCLUDES\CONST.INC'
 times(512-2-($-07C00h)) db 0

@@ -26,8 +26,8 @@ struct file
 {
     u_char16 type;
     u_char16 track;
-    u_char16 sector;
     u_char16 num_sectors;
+    u_char16 sector;
     u_char16 name[12];
 };
 struct f_string
@@ -189,4 +189,31 @@ u_char16 load_daps(daps *new_daps){
     );
     asm volatile("popa");
     return status;
+}
+u_char16 get_len_str(u_char16 *str){
+    for(u_char16 i = 0; i < 255; i++){
+        if(str[i] == 0) return i;
+    }
+}
+u_char16 cmpstr(u_char16 *str1, u_char16 *str2){
+    u_char16 len_str1 = get_len_str(str1);
+    u_char16 len_str2 = get_len_str(str2);
+    if(len_str1 != len_str2) return 1;
+    for(u_char16 i = 0; i < len_str1; i++){
+        if(str1[i] != str2[i]) return 1;
+    }
+    return 0;
+}
+daps get_daps_file(u_char16 *str, u_int16 p_adres){
+    file my_files[32];
+    load_table_files(my_files);
+    daps new_daps;
+    for(u_char16 f = 0; f < 32; f++){
+        if(cmpstr(str, my_files[f].name) == 0){
+            new_daps = create_daps( my_files[f].num_sectors, p_adres, my_files[f].sector);
+            return new_daps;
+        }
+    }
+    new_daps.p_empty = 1;
+    return new_daps;
 }
