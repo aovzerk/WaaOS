@@ -142,7 +142,7 @@ f_string input(){
         "mov $0x3, %%ah\n"
         "int $0x90\n"
         :
-        : "c"(255),"D"(my_str.data)
+        : "c"(254),"D"(my_str.data)
         :
     );
     asm volatile("popa");
