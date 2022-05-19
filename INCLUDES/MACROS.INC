@@ -85,6 +85,14 @@ macro CMP_STRING STR1, STR2
     mov ah,09h
     int 90h
 }
+macro LOAD_DAPS DAPS
+{
+    push cs
+    pop ds
+    mov si, DAPS
+    mov ah, 16h
+    int 90h
+}
 macro LOAD_TABLE_FILES METKA
 {
     push cs

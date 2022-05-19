@@ -13,7 +13,7 @@ jmp START_K
 START_K:
 SET_INTERRUPT_HANDLER 90H,MAIN_INTERRUPT_HANDLER
 SET_INTERRUPT_HANDLER 91H,INTERRUPT_HANDLER_RETURN
-LOAD_TABLE_FILES TABLE_FILES
+LOAD_DAPS DAPS_TABEL_FILES
 PRINT HELLO_WORLD, BLACK
 MAIN:
 NEW_LINE
@@ -26,10 +26,14 @@ je PRINT_ERROR
 
 cmp ah,1
 je START_PROGRAMM
-
+jmp MAIN
 
 START_PROGRAMM:
-    LOAD_FILE ch, cl, al, 0000, 0500h
+    mov si, DAPS_RUNTIME_FILE
+    mov [si + 2], al
+    mov [si + 8], cl
+    LOAD_DAPS DAPS_RUNTIME_FILE
+    ;LOAD_FILE ch, cl, al, 0000, 0500h
     NEW_LINE
 jmp 0000:0500h
 
@@ -43,6 +47,22 @@ RETURN_INT:
     jmp MAIN
 ;сюда передает управление int 91h
 jmp $
+DAPS_RUNTIME_FILE:
+    db 16;const paksize
+    db 0;null
+    db 1;кол-во секторов
+    db 0;null
+    dw 0500h;смещение
+    dw 0;сегмент
+    dq 7;начало
+DAPS_TABEL_FILES:
+    db 16;const paksize
+    db 0;null
+    db 1;кол-во секторов
+    db 0;null
+    dw TABLE_FILES;смещение
+    dw 0;сегмент
+    dq 1;начало
 HELLO_WORLD: string "WaaOS Loaded, Hello! =)"
 ERROR: string "Command not found :("
 GUI: string "gui"

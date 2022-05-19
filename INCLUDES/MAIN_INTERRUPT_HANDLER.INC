@@ -67,6 +67,9 @@ je HF_GET_KEY
 cmp ah,15h;out= dh,dl - string,char ch,cl=нач.и кончеч строки курсора
 je HF_GET_CURSOR
 
+cmp ah,16h;-|-in - ds:si - daps
+je HF_LOAD_DAPS
+
 ;in: dh - golovka
 ;	 ch - dorogka
 ;	 cl - sector
@@ -138,7 +141,9 @@ HF_GET_KEY:
 
     call F_GET_KEY
 iret
-
+HF_LOAD_DAPS:
+ call F_LOAD_DAPS
+iret
 HF_LOAD_FILE_AND_START:
     call F_LOAD_FILE
     pop ax

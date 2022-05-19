@@ -1,6 +1,7 @@
 #define u_int16 unsigned short int
 #define u_char16 unsigned char
 #define u_long_int unsigned long int
+#define u_long_int64 unsigned long long int
 #define White 15
 #define Light_Brown 14
 #define Light_Magenta 13
@@ -17,10 +18,10 @@
 #define Green 2
 #define Blue 1
 #define Black 0
-u_char16 new_line[] = "\n\r\0";
 asm(".code16gcc\n"
     "call main\n"
     "int $0x91\n");
+u_char16 new_line[] = "\n\r\0";
 struct file
 {
     u_char16 type;
@@ -34,6 +35,30 @@ struct f_string
     u_char16 len;
     u_char16 data[255];
 };
+struct daps
+{
+    u_char16 p_size = 16;
+    u_char16 p_empty = 0;
+    u_char16 p_n_setors;
+    u_char16 p_empty2 = 0;
+    u_int16 p_adres;
+    u_int16 p_segment;
+    u_long_int64 sector;
+};
+daps create_daps(u_char16 p_n_setors, u_int16 p_adres, u_long_int64 sector){
+    daps new_daps;
+    new_daps.p_n_setors = p_n_setors;
+    new_daps.p_adres = p_adres;
+    new_daps.sector = sector;
+    asm (
+        "push %%cs\n"
+        "pop %%ax\n"
+        : "=a"(new_daps.p_segment)
+        :
+        :
+    );
+    return new_daps;
+}
 f_string clear_str(){
     f_string str;
     for(u_int16 i = 0; i < 255; i++){
@@ -148,4 +173,20 @@ f_string input(){
     asm volatile("popa");
     my_str = calc_len(my_str);
     return my_str;
+}
+u_char16 load_daps(daps *new_daps){
+    u_char16 status = 0;
+    asm volatile("pusha");
+    asm volatile(
+
+        "push %%cs\n"
+        "pop %%ds\n"
+        "mov $0x16, %%ah\n"
+        "int $0x90\n"
+        : "=a"(status)
+        : "S"(new_daps)
+        :
+    );
+    asm volatile("popa");
+    return status;
 }

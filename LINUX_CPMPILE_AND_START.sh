@@ -8,15 +8,10 @@ fasm PROGRAMMS/GUI.ASM
 fasm C_PROGRAMMS/HELLO_C.ASM
 fasm C_PROGRAMMS/LS.ASM
 fasm C_PROGRAMMS/CALC.ASM
+fasm C_PROGRAMMS/TEST.ASM
+fasm TXT/T.ASM
 fasm MAKE/OS.ASM OS.IMG
 
-rm ./BOOT/BOOT.BIN
-rm ./FILE_SYSTEM/FILE_SYSTEM.BIN
-rm ./KERNEL/KERNEL.BIN
-rm ./PROGRAMMS/HELLO_WORLD.BIN
-rm ./PROGRAMMS/LS.BIN
-rm ./PROGRAMMS/GUI.BIN
-rm ./C_PROGRAMMS/HELLO_C.BIN
-rm ./C_PROGRAMMS/LS.BIN
-rm ./C_PROGRAMMS/CALC.BIN
-qemu-system-x86_64 -drive file=OS.IMG,index=0,if=floppy,format=raw
+rm ./**/*.BIN
+
+qemu-system-x86_64 -drive file=OS.IMG,index=0,format=raw

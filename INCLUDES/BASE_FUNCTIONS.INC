@@ -169,7 +169,7 @@ ret
 ;-------------------Поиск адреса файла------------------------------------------------------------------------------------------
 
 ;-|-in - ds:bx=tableFiles, ds:di=flename
-; |-out - ch-dorogka cl=sector, ah=numSectors ah = type
+; |-out - ch-dorogka cl=sector, al=numSectors ah = type
 ; |-except - not found - ax=0, cx=0
 F_SEACH_FILE:
 jmp startpfseachFile
@@ -235,5 +235,15 @@ F_LOAD_TABLE_FILES:
 	mov ch,0
 	mov cl,2
 	mov al,1
+	int 13h
+ret
+
+;-------------------Загрузка DAPS-------------------------------------------------------------------------------------
+
+;-|-in - ds:si - daps
+; |-out - (load file table on ram)
+F_LOAD_DAPS:
+	mov dl,[BOOT_DISK]
+	mov ah,42h
 	int 13h
 ret

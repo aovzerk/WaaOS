@@ -5,6 +5,7 @@
         "HELLO_C.C": "cpp",
         "LS.C": "cpp",
         "TEST_INPUT.C": "cpp",
-        "CALC.C": "cpp"
+        "CALC.C": "cpp",
+        "TEST.C": "cpp"
     }
 }

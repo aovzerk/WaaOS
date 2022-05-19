@@ -4,7 +4,7 @@
 
 void main(void)
 {
-    print((u_char16 *) "Input number1:> ", White);
+        
     f_string my_str = input();
     print(new_line, Black);
     print((u_char16 *) "Input number2:> ", White);
