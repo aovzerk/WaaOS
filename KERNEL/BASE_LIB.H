@@ -190,6 +190,22 @@ u_char16 load_daps(daps *new_daps){
     asm volatile("popa");
     return status;
 }
+u_char16 save_daps(daps *new_daps){
+    u_char16 status = 0;
+    asm volatile("pusha");
+    asm volatile(
+
+        "push %%cs\n"
+        "pop %%ds\n"
+        "mov $0x18, %%ah\n"
+        "int $0x90\n"
+        : "=a"(status)
+        : "S"(new_daps)
+        :
+    );
+    asm volatile("popa");
+    return status;
+}
 u_char16 get_len_str(u_char16 *str){
     for(u_char16 i = 0; i < 255; i++){
         if(str[i] == 0) return i;

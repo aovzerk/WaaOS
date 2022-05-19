@@ -247,3 +247,8 @@ F_LOAD_DAPS:
 	mov ah,42h
 	int 13h
 ret
+F_SAVE_DAPS:
+	mov dl,[BOOT_DISK]
+	mov ah,43h
+	int 13h
+ret
