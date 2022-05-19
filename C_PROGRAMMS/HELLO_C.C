@@ -5,9 +5,9 @@
 void main(void)
 {
     print_char('1');
-    char hello[] = "Hello World!\n\r\0";
-    char *ptr = hello;
-    print(ptr);
-    print(ptr);
+    u_char16 hello[] = "Hello World!\n\r\0";
+    u_char16 *ptr = hello;
+    print(ptr, 15);
+    print(ptr, 15);
     exit();
 }
