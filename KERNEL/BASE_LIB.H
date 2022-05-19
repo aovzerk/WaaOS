@@ -194,7 +194,6 @@ u_char16 save_daps(daps *new_daps){
     u_char16 status = 0;
     asm volatile("pusha");
     asm volatile(
-
         "push %%cs\n"
         "pop %%ds\n"
         "mov $0x18, %%ah\n"
