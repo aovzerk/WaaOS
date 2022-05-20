@@ -86,7 +86,7 @@ void Reverse(u_char8* begin, u_char8* end, u_char8 n)
         Reverse(begin + 1, end - 1, n - 2);
     }
 }
-f_string covert_to_string(u_long_int num){
+f_string convert_to_string(u_long_int num){
     f_string new_str = clear_str();
     u_int16 i = 0;
     for(; i < 255; i++){
