@@ -1,2 +1,2 @@
 main: file 'GUI.BIN'
-times(6*512-($-main)) db 0
+times(11*512-($-main)) db 0

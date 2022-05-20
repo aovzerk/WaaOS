@@ -1,2 +1,2 @@
 main: file 'CALC.BIN'
-times(6*512-($-main)) db 0
+times(7*512-($-main)) db 0

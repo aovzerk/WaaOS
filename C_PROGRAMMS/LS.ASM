@@ -1,2 +1,2 @@
 main: file 'LS.BIN'
-times(5*512-($-main)) db 0
+times(6*512-($-main)) db 0

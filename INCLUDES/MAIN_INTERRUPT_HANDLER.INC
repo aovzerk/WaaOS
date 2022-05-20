@@ -82,6 +82,10 @@ je HF_LOAD_DAPS
 cmp ah,18h;-|-in - ds:si - daps
 je HF_SAVE_DAPS
 
+
+cmp ah,19h;-|-in - ds:si - daps
+je HF_START_LOADED_FILE
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret
@@ -150,7 +154,10 @@ HF_LOAD_DAPS:
 iret
 HF_SAVE_DAPS:
     call F_SAVE_DAPS
-iret 
+iret
+HF_START_LOADED_FILE:
+    call F_LOAD_DAPS
+    jmp 0000:0500h
 HF_LOAD_FILE_AND_START:
     call F_LOAD_FILE
     pop ax

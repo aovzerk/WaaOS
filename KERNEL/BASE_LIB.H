@@ -249,6 +249,31 @@ daps get_r_daps_file(u_char8 *str, u_int16 p_adres){
     new_daps.p_empty = 1;
     return new_daps;
 }
+void start_programm(daps *new_daps){
+    asm volatile(
+        "push %%cs\n"
+        "pop %%ds\n"
+        "mov $0x19, %%ah\n"
+        "int $0x90\n"
+        :
+        :"S"(new_daps)
+        :
+    );
+}
+u_char8 get_scan_code_key(){
+    u_char8 new_char = 0;
+    asm volatile("pusha");
+    asm volatile(
+        "xor %%ax,%%ax\n"
+        "int $0x16\n"
+        "movb %%ah, %0\n"
+        :
+        :"m"(new_char)
+        :
+    );
+    asm volatile("popa");
+    return new_char;
+}
 void set_cursor(u_char8 x, u_char8 y){
     asm volatile("pusha");
     asm volatile(
