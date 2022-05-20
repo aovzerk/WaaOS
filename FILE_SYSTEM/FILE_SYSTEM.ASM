@@ -22,17 +22,21 @@ db 1,0,5,15,"ls2"
 times(16-($-ls2)) db 0
 
 calc:
-db 1,0,5,20,"calc"
+db 1,0,6,20,"calc"
 times(16-($-calc)) db 0
 
 
 f_info:
-db 1,0,10,25,"f_info"
+db 1,0,10,26,"f_info"
 times(16-($-f_info)) db 0
 
 
 txt:
-db 2,0,1,35,"txt"
+db 2,0,1,36,"txt"
 times(16-($-txt)) db 0
+
+gui2:
+db 1,0,5,37,"gui2"
+times(16-($-gui2)) db 0
 
 times(512-($-files)) db 0

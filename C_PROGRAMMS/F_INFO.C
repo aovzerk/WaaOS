@@ -29,7 +29,7 @@ void main(void)
         } else if(daps_file.data_file.type == 2){
             load_daps(&daps_file);
             print_nl((u_char8 *) "Type: text", Green);
-            print_nl((u_char8 *) "512 byte file:", Light_Grey);
+            print_nl((u_char8 *) "first 512 byte of file:", Light_Grey);
             print_nl((u_char8 *) "=========================", Red);
             print(file_data, Light_Grey);
             print((u_char8 *) "\n\r=========================", Red);

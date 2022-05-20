@@ -7,6 +7,7 @@
         "TEST_INPUT.C": "cpp",
         "CALC.C": "cpp",
         "TEST.C": "cpp",
-        "F_INFO.C": "cpp"
+        "F_INFO.C": "cpp",
+        "GUI.C": "cpp"
     }
 }
