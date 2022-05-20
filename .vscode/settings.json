@@ -6,6 +6,7 @@
         "LS.C": "cpp",
         "TEST_INPUT.C": "cpp",
         "CALC.C": "cpp",
-        "TEST.C": "cpp"
+        "TEST.C": "cpp",
+        "F_INFO.C": "cpp"
     }
 }

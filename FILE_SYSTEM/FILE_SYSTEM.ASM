@@ -26,13 +26,13 @@ db 1,0,5,20,"calc"
 times(16-($-calc)) db 0
 
 
-t:
-db 1,0,5,25,"t"
-times(16-($-t)) db 0
+f_info:
+db 1,0,10,25,"f_info"
+times(16-($-f_info)) db 0
 
 
-mytxt:
-db 2,0,1,30,"txt"
-times(16-($-mytxt)) db 0
+txt:
+db 2,0,1,35,"txt"
+times(16-($-txt)) db 0
 
 times(512-($-files)) db 0

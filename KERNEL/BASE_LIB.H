@@ -22,18 +22,14 @@ asm(".code16gcc\n"
     "call main\n"
     "int $0x91\n");
 u_char8 new_line[] = "\n\r\0";
+
 struct file
 {
     u_char8 type;
-    u_char8 track;
+    u_char8 empty;
     u_char8 num_sectors;
     u_char8 sector;
     u_char8 name[12];
-};
-struct f_string
-{
-    u_char8 len;
-    u_char8 data[255];
 };
 struct daps
 {
@@ -44,6 +40,12 @@ struct daps
     u_int16 p_adres;
     u_int16 p_segment;
     u_long_int64 sector;
+    file data_file;
+};
+struct f_string
+{
+    u_char8 len;
+    u_char8 data[255];
 };
 daps create_daps(u_char8 p_n_setors, u_int16 p_adres, u_long_int64 sector){
     daps new_daps;
@@ -157,6 +159,20 @@ void load_table_files(file *files){
     );
     asm volatile("popa");
 }
+void input_no_format(u_char8 *str, u_int16 len){
+    asm volatile("pusha");
+    asm volatile(
+
+        "push %%cs\n"
+        "pop %%es\n"
+        "mov $0x3, %%ah\n"
+        "int $0x90\n"
+        :
+        : "c"(len),"D"(str)
+        :
+    );
+    asm volatile("popa");
+}
 f_string input(){
     f_string my_str = clear_str();
     asm volatile("pusha");
@@ -226,6 +242,7 @@ daps get_r_daps_file(u_char8 *str, u_int16 p_adres){
     for(u_char8 f = 0; f < 32; f++){
         if(cmpstr(str, my_files[f].name) == 0){
             new_daps = create_daps( my_files[f].num_sectors, p_adres, my_files[f].sector);
+            new_daps.data_file = my_files[f];
             return new_daps;
         }
     }
