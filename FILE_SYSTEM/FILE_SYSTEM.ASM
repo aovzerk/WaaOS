@@ -34,4 +34,8 @@ gui2:
 db 1,0,11,39,"gui2"
 times(16-($-gui2)) db 0
 
+cmd:
+db 1,0,11,50,"cmd"
+times(16-($-cmd)) db 0
+
 times(512-($-files)) db 0

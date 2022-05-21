@@ -2,14 +2,22 @@
 
 #include "BASE_LIB.H"
 
-void main(void)
+void main(u_char8 *args)
 {   
+    u_char8 my_args[255] = "1";
+    copy_data(my_args, args, 20);
     u_char8 fime_name[12];
     u_char8 file_data[512];
-    print((u_char8 *)"Input file name => ", Light_Grey);
-    
-    input_no_format(fime_name, 12);
-    daps daps_file = get_r_daps_file(fime_name, (u_int16) file_data);
+    daps daps_file;
+    daps_file.p_empty = 1;
+    if(my_args[7] != 0){
+        daps_file = get_r_daps_file(my_args + 7, (u_int16) file_data);
+    }
+    if(daps_file.p_empty == 1){
+        print((u_char8 *)"Input file name => ", Light_Grey);
+        input_no_format(fime_name, 12);
+        daps_file = get_r_daps_file(fime_name, (u_int16) file_data);
+    }
     if(daps_file.p_empty == 1){
         print(new_line, Black);
         print((u_char8 *)"FILE NOT FOUND", Red);

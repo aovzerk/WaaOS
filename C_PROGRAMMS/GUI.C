@@ -114,7 +114,7 @@ void main(void)
             if(my_files[selected_file].type == 1){
                 daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x0500);
                 clear_Screen();
-                start_programm(&daps_file);
+                start_programm(&daps_file, 0);
             }
         }
         print_selected(my_files, selected_file);

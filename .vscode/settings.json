@@ -8,6 +8,7 @@
         "CALC.C": "cpp",
         "TEST.C": "cpp",
         "F_INFO.C": "cpp",
-        "GUI.C": "cpp"
+        "GUI.C": "cpp",
+        "CMD.C": "cpp"
     }
 }

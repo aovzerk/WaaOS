@@ -86,6 +86,10 @@ je HF_SAVE_DAPS
 cmp ah,19h;-|-in - ds:si - daps
 je HF_START_LOADED_FILE
 
+
+cmp ah,20h;-|-in - ds:si - daps
+je HCOPY_DATA
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret
@@ -155,7 +159,34 @@ iret
 HF_SAVE_DAPS:
     call F_SAVE_DAPS
 iret
+HCOPY_DATA:;bx - от куда di - куда cx - len
+    ;mov bx, TMP
+    HCOPY_DATA_start:
+        mov al, [bx]
+        mov [di],al
+        inc di
+        inc bx
+    loop HCOPY_DATA_start
+iret
 HF_START_LOADED_FILE:
+    pusha
+    push cs
+    pop ds
+    mov di, TMP
+    mov cx, 254
+    call F_CLEAR_BUFFER
+    popa
+    pusha
+    mov cx,254
+    mov di,TMP
+    HF_START_LOADED_FILE_TMP:
+        mov al,[bx] 
+        mov [di], al
+        inc bx
+        inc di
+    loop HF_START_LOADED_FILE_TMP
+    popa
+    push TMP
     call F_LOAD_DAPS
     jmp 0000:0500h
 HF_LOAD_FILE_AND_START:

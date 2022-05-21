@@ -249,14 +249,14 @@ daps get_r_daps_file(u_char8 *str, u_int16 p_adres){
     new_daps.p_empty = 1;
     return new_daps;
 }
-void start_programm(daps *new_daps){
+void start_programm(daps *new_daps, u_char8 *args){
     asm volatile(
         "push %%cs\n"
         "pop %%ds\n"
         "mov $0x19, %%ah\n"
         "int $0x90\n"
         :
-        :"S"(new_daps)
+        :"S"(new_daps),"b"(args)
         :
     );
 }
@@ -293,6 +293,17 @@ void clear_Screen(){
         "int $0x90\n"
         :
         :"a"(3)
+        :
+    );
+    asm volatile("popa");
+}
+void copy_data(u_char8 *str1, u_char8 *str2,u_char8 len){
+    asm volatile("pusha");
+    asm volatile(
+        "mov $0x20, %%ah\n"
+        "int $0x90\n"
+        : 
+        : "b"(str2),"D"(str1),"c"(len)
         :
     );
     asm volatile("popa");
