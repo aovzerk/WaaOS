@@ -9,6 +9,7 @@
         "TEST.C": "cpp",
         "F_INFO.C": "cpp",
         "GUI.C": "cpp",
-        "CMD.C": "cpp"
+        "CMD.C": "cpp",
+        "POWEROFF.C": "cpp"
     }
 }

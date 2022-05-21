@@ -308,3 +308,12 @@ void copy_data(u_char8 *str1, u_char8 *str2,u_char8 len){
     );
     asm volatile("popa");
 }
+void power_off(){
+    asm volatile(
+        "mov $0x21, %%ah\n"
+        "int $0x90\n"
+        : 
+        :
+        :
+    );
+}

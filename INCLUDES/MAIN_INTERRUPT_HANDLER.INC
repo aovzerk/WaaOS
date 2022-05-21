@@ -90,6 +90,9 @@ je HF_START_LOADED_FILE
 cmp ah,20h;-|-in - ds:si - daps
 je HCOPY_DATA
 
+cmp ah,21h
+je HPOWER_OFF
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret
@@ -167,6 +170,19 @@ HCOPY_DATA:;bx - от куда di - куда cx - len
         inc di
         inc bx
     loop HCOPY_DATA_start
+iret
+HPOWER_OFF:
+    MOV     AX,5301h
+    XOR     BX,BX
+    INT     15h
+    MOV     AX,5308h
+    MOV     BX,0FFFFh
+    MOV     CX,0001h
+    INT     15h
+    MOV     AX,5307h
+    MOV     BX,0001h
+    MOV     CX,0003h
+    INT     15h
 iret
 HF_START_LOADED_FILE:
     pusha
