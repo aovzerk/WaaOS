@@ -17,6 +17,7 @@ void main(u_char8 *args)
         print((u_char8 *)"Input file name => ", Light_Grey);
         input_no_format(fime_name, 12);
         daps_file = get_r_daps_file(fime_name, (u_int16) file_data);
+        daps_file.p_empty2 = 1;
     }
     if(daps_file.p_empty == 1){
         print(new_line, Black);
@@ -27,7 +28,12 @@ void main(u_char8 *args)
         f_string first_sector = convert_to_string(daps_file.sector);
         print(new_line, Black);
         print((u_char8 *) "File: ", Light_Grey);
-        print_nl(fime_name, Light_Grey);
+        if(daps_file.p_empty2 == 1){
+            print_nl(fime_name, Light_Grey);
+        }else{
+            print_nl(my_args+7, Light_Grey);
+        }
+        
         print((u_char8 *) "Num. Sectors: ", Light_Grey);
         print_nl(num_sectors.data, Light_Grey);
         print((u_char8 *) "First Sector: ", Light_Grey);
