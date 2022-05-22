@@ -28,11 +28,12 @@ void print_pixel(u_char8 pixel, u_char8 x, u_char8 y){
     );
     asm volatile("popa");
 }
+u_char8 data_file[51200];
 void main(u_char8 *args)
 {
+    
     u_char8 my_args[255] = "1";
     copy_data(my_args, args, 254);
-    u_char8 data_file[4608];
     u_char8 *data_img = data_file + 138;//42;//+3
     daps my_daps = get_r_daps_file(my_args+6, (u_int16)data_file);
     if(my_daps.p_empty == 1 || my_daps.data_file.type != 3 || my_args[6] == 0){

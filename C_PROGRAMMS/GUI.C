@@ -117,7 +117,7 @@ void main(void)
             if(selected_file != 0) selected_file--;
         }else if(my_char == 28){
             if(my_files[selected_file].type == 1){
-                daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x0500);
+                daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x07E00);
                 clear_Screen();
                 start_programm(&daps_file, 0);
             }

@@ -225,19 +225,24 @@ F_LOAD_FILE:
 ret
 
 ;-------------------Загрузка таблицы файлов-------------------------------------------------------------------------------------
-
-;-|-in - es=segment, bx=metka
+;-|-in - ds:si - daps
 ; |-out - (load file table on ram)
 F_LOAD_TABLE_FILES:
-	mov ah,02h
-	mov dh,0
-	mov dl,[BOOT_DISK]
-	mov ch,0
-	mov cl,2
-	mov al,1
-	int 13h
+	mov di,F_LOAD_TABLE_FILES_DAPS_TABEL_FILES
+	mov [di + 4], bx
+	push cs
+	pop ds
+	mov si,F_LOAD_TABLE_FILES_DAPS_TABEL_FILES
+	call F_LOAD_DAPS
 ret
-
+F_LOAD_TABLE_FILES_DAPS_TABEL_FILES:
+    db 16;const paksize
+    db 0;null
+    db 1;кол-во секторов
+    db 0;null
+    dw 0;смещение
+    dw 0;сегмент
+    dq 1;начало
 ;-------------------Загрузка DAPS-------------------------------------------------------------------------------------
 
 ;-|-in - ds:si - daps

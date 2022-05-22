@@ -28,7 +28,7 @@ void main(void)
             file_name[i] = user_guffer.data[i];
         }
         if(file_name[0] != ' ' && file_name[0] != 0){
-            daps daps_file = get_r_daps_file(file_name, (u_int16) 0x0500);
+            daps daps_file = get_r_daps_file(file_name, (u_int16) 0x07E00);
             print(new_line, Black);
             if(daps_file.p_empty != 1){
                 start_programm(&daps_file, user_guffer.data);

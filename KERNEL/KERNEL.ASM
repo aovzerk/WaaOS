@@ -1,4 +1,4 @@
-org 7E00h
+org 0500h
 GLOBAL:
 mov [BOOT_DISK],dl
 jmp START_K
@@ -35,7 +35,7 @@ START_PROGRAMM:
     LOAD_DAPS DAPS_RUNTIME_FILE
     ;LOAD_FILE ch, cl, al, 0000, 0500h
     NEW_LINE
-jmp 0000:0500h
+jmp 0000:7E00h
 
 PRINT_ERROR:
     NEW_LINE
@@ -52,7 +52,7 @@ DAPS_RUNTIME_FILE:
     db 0;null
     db 1;кол-во секторов
     db 0;null
-    dw 0500h;смещение
+    dw 7E00h;смещение
     dw 0;сегмент
     dq 7;начало
 DAPS_TABEL_FILES:

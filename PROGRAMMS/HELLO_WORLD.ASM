@@ -1,4 +1,4 @@
-org 0500h
+org 7E00h
 main:
 push cs
 pop ds
