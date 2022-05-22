@@ -42,4 +42,16 @@ cmd:
 db 1,0,11,55,"cmd"
 times(16-($-cmd)) db 0
 
+d_bmp:
+db 1,0,7,66,"d_bmp"
+times(16-($-d_bmp)) db 0
+
+test_bmp:
+db 2,0,4,73,"test_bmp"
+times(16-($-test_bmp)) db 0
+
+test2_bmp:
+db 2,0,4,77,"test2_bmp"
+times(16-($-test2_bmp)) db 0
+
 times(512-($-files)) db 0

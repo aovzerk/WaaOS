@@ -93,6 +93,9 @@ je HCOPY_DATA
 cmp ah,21h
 je HPOWER_OFF
 
+cmp ah,22h
+je HGET_PIXEL_COLOR
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret
@@ -205,6 +208,25 @@ HF_START_LOADED_FILE:
     push TMP
     call F_LOAD_DAPS
     jmp 0000:0500h
+HGET_PIXEL_COLOR:;si-image_data ;out al-color
+   xor   al,al                ; здесь будет результат  
+   mov   ah,byte[si]     ; берём цвет(B). читаем сколько синего
+   shr   ah,7                 ; сдвигаем вправо на 7 разрядов
+   and   ah,0001b             ; бит(0) маски отвечает за синий цвет
+   or    al,ah                ; если имеется, то выставляем в маске синий
+   inc   si                   ; берём цвет(G) (в BMP цвета идут BGR)
+   mov   ah,byte[si]     ; тоже/самое, только со сдвигом на 1 левее
+   shr   ah,6                 ; сдвигаем вправо на 6 разрядов
+   and   ah,0010b             ; бит(1) маски - зелёный цвет
+   or    al,ah                ; выставляем зеленый
+   inc   si                   ; берём цвет(R). читаем кол-во красного
+   mov   ah,byte[si]     ; всё/тоже,
+   shr   ah,5                 ;   ..только со-сдвигом вправо на 5
+   and   ah,0100b             ; бит(2) маски - красный
+   or    al,ah                ; имеется? выставляем красный
+   inc   si
+   or    al,1000b 
+iret
 HF_LOAD_FILE_AND_START:
     call F_LOAD_FILE
     pop ax

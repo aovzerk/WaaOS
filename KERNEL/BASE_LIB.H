@@ -287,15 +287,18 @@ void set_cursor(u_char8 x, u_char8 y){
     );
     asm volatile("popa");
 }
-void clear_Screen(){
+void set_video(u_char8 mode){
     asm volatile("pusha");
     asm volatile(
         "int $0x90\n"
         :
-        :"a"(3)
+        :"a"(mode)
         :
     );
     asm volatile("popa");
+}
+void clear_Screen(){
+    set_video((u_char8)3);
 }
 void copy_data(u_char8 *str1, u_char8 *str2,u_char8 len){
     asm volatile("pusha");

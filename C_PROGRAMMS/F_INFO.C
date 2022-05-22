@@ -41,6 +41,7 @@ void main(u_char8 *args)
         if(daps_file.data_file.type == 1){
             print_nl((u_char8 *) "Type: execute", Red);
         } else if(daps_file.data_file.type == 2){
+            daps_file.p_n_setors = 1;
             load_daps(&daps_file);
             print_nl((u_char8 *) "Type: text", Green);
             print_nl((u_char8 *) "first 512 byte of file:", Light_Grey);
