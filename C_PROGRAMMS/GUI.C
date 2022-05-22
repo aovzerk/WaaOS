@@ -120,6 +120,15 @@ void main(void)
                 daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x07E00);
                 clear_Screen();
                 start_programm(&daps_file, 0);
+            } else if(my_files[selected_file].type == 3){
+                daps daps_file = get_r_daps_file((u_char8 *)"d_bmp", (u_int16) 0x07E00);
+                clear_Screen();
+                u_char8 args_for_d_bmp[40] = "d_bmp";
+                args_for_d_bmp[5] == 0;
+                for(u_char8 i = 6; i < 18; i++){
+                    args_for_d_bmp[i] = my_files[selected_file].name[i - 6];
+                }
+                start_programm(&daps_file, args_for_d_bmp);
             }
         }
         print_selected(my_files, selected_file);
