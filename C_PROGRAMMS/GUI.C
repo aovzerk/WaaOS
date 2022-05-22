@@ -57,7 +57,6 @@ void print_info_file(file *files, u_char8 selected){
     set_cursor(2, 30);
     u_char8 file_data[512];
     daps daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data);
-    daps_file.p_n_setors = 1;
     f_string num_sectors = convert_to_string(daps_file.p_n_setors);
     f_string first_sector = convert_to_string(daps_file.sector);
     print((u_char8 *) "File: ", Light_Grey);
