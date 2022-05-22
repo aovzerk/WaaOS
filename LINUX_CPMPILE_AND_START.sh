@@ -3,7 +3,6 @@ fasm BOOT/BOOT.ASM
 fasm FILE_SYSTEM/FILE_SYSTEM.ASM
 fasm KERNEL/KERNEL.ASM
 fasm PROGRAMMS/HELLO_WORLD.ASM
-fasm PROGRAMMS/LS.ASM
 fasm C_PROGRAMMS/HELLO_C.ASM
 fasm C_PROGRAMMS/LS.ASM
 fasm C_PROGRAMMS/CALC.ASM
@@ -18,5 +17,5 @@ fasm bpms/bmp2.asm
 fasm MAKE/OS.ASM OS.IMG
 
 rm ./**/*.BIN
-
+rm ./**/*.bin
 qemu-system-x86_64 -drive file=OS.IMG,index=0,format=raw
