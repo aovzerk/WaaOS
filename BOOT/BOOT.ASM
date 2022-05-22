@@ -18,13 +18,15 @@ jmp 0000:0500h
 
 jmp $
 paket:
-        db 16;const paksize
-        db 0;null
-        db 4;кол-во секторов
-        db 0;null
-        dw 0500h;смещение
-        dw 0;сегмент
-        dq 2;начало
+db 16;const paksize
+db 0;null
+db 4;кол-во секторов
+db 0;null
+dw 0500h;смещение
+dw 0;сегмент
+dq 2;начало
+
+include 'INCLUDES\CONST.INC'
 times(512-2-($-07C00h)) db 0
 db 055h,0AAh
 ;16 байт 1 сегмент
