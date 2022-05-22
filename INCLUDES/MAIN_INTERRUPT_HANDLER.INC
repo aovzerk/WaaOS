@@ -96,6 +96,8 @@ je HPOWER_OFF
 cmp ah,22h
 je HGET_PIXEL_COLOR
 
+iret
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret

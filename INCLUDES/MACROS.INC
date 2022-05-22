@@ -93,14 +93,6 @@ macro LOAD_DAPS DAPS
     mov ah, 17h
     int 90h
 }
-macro LOAD_TABLE_FILES METKA
-{
-    push cs
-    pop es
-    mov bx,METKA
-    mov ah,12h
-    int 90h
-}
 macro SEACH_FILE TABLE_FILES, FILENAME
 {
     push cs
