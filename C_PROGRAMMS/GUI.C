@@ -83,6 +83,10 @@ void print_info_file(file *files, u_char8 selected){
         set_cursor(9, 30);
         print((u_char8 *) "=========================", Red);
         
+    }else if(daps_file.data_file.type == 3){
+        daps_file.p_n_setors = 1;
+        load_daps(&daps_file);
+        print_nl((u_char8 *) "Type: image", Cyan);
     }
 }
 u_char8 get_files_len(file *files){

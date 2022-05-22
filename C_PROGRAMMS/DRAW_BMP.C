@@ -35,12 +35,11 @@ void main(u_char8 *args)
     u_char8 data_file[4608];
     u_char8 *data_img = data_file + 138;//42;//+3
     daps my_daps = get_r_daps_file(my_args+6, (u_int16)data_file);
-    load_daps(&my_daps);
-    if(my_daps.p_empty == 1){
+    if(my_daps.p_empty == 1 || my_daps.data_file.type != 3 || my_args[6] == 0){
         print(new_line, Black);
-        print((u_char8 *)"FILE NOT FOUND", Red);
-        return;
+        print((u_char8 *)"FILE NOT FOUND OR INVALID TYPE", Red);
     }else {
+        load_daps(&my_daps);
         set_video(0x12);
         u_char8 pixel_color = get_pixel_color(data_img);
         u_char8 w = data_file[18];

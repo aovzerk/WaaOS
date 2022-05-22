@@ -48,6 +48,10 @@ void main(u_char8 *args)
             print_nl((u_char8 *) "=========================", Red);
             print(file_data, Light_Grey);
             print((u_char8 *) "\n\r=========================", Red);
+        } else if(daps_file.data_file.type == 3){
+            daps_file.p_n_setors = 1;
+            load_daps(&daps_file);
+            print_nl((u_char8 *) "Type: image", Cyan);
         }
         
     }
