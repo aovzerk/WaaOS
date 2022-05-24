@@ -1,2 +1,2 @@
 main: db "Privet pava! :)"
-times(512-($-main)) db 0
+times(1*2*512-($-main)) db 0

@@ -2,7 +2,7 @@
 #include "BASE_LIB.H"
 
 void main(){
-    file my_files[32];
+    file my_files[64];
     load_table_files(my_files);
     u_char8 empty_string[] = "\0";
     u_char8 my_string[] = "LS Programm v0.1 KIM\n\r\0";

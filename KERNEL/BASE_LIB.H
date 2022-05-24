@@ -27,15 +27,15 @@ struct file
 {
     u_char8 type;
     u_char8 empty;
-    u_char8 num_sectors;
-    u_char8 sector;
+    u_char8 num_clusters;
+    u_char8 cluster;
     u_char8 name[12];
 };
 struct daps
 {
     u_char8 p_size = 16;
     u_char8 p_empty = 0;
-    u_char8 p_n_setors;
+    u_char8 p_n_sectors;
     u_char8 p_empty2 = 0;
     u_int16 p_adres;
     u_int16 p_segment;
@@ -47,9 +47,9 @@ struct f_string
     u_char8 len;
     u_char8 data[255];
 };
-daps create_daps(u_char8 p_n_setors, u_int16 p_adres, u_long_int64 sector){
+daps create_daps(u_char8 p_n_sectors, u_int16 p_adres, u_long_int64 sector){
     daps new_daps;
-    new_daps.p_n_setors = p_n_setors;
+    new_daps.p_n_sectors = p_n_sectors;
     new_daps.p_adres = p_adres;
     new_daps.sector = sector;
     asm (
@@ -129,13 +129,13 @@ void print_nl(u_char8 *string, u_char8 color){
     print(string, color);
     print(new_line, Black);
 }
-void print_char(u_char8 symbol){
+void print_char(u_char8 symbol, u_char8 color){
     asm volatile("pusha");
     asm volatile(
         "mov $0x13, %%ah\n"
         "int $0x90\n"
         :
-        : "a"(symbol)
+        : "a"(symbol),"b"(color)
         :
     );
     asm volatile("popa");
@@ -144,20 +144,6 @@ void exit()
 {
     asm (".code16gcc\n"
      "int   $0x91\n");
-}
-void load_table_files(file *files){
-    asm volatile("pusha");
-    asm volatile(
-
-        "push %%cs\n"
-        "pop %%es\n"
-        "mov $0x12, %%ah\n"
-        "int $0x90\n"
-        :
-        : "b"(files)
-        :
-    );
-    asm volatile("popa");
 }
 void input_no_format(u_char8 *str, u_int16 len){
     asm volatile("pusha");
@@ -206,6 +192,20 @@ u_char8 load_daps(daps *new_daps){
     asm volatile("popa");
     return status;
 }
+void load_table_files(file *files){
+    asm volatile("pusha");
+    asm volatile(
+
+        "push %%cs\n"
+        "pop %%es\n"
+        "mov $0x12, %%ah\n"
+        "int $0x90\n"
+        :
+        : "b"(files)
+        :
+    );
+    asm volatile("popa");
+}
 u_char8 save_daps(daps *new_daps){
     u_char8 status = 0;
     asm volatile("pusha");
@@ -236,12 +236,12 @@ u_char8 cmpstr(u_char8 *str1, u_char8 *str2){
     return 0;
 }
 daps get_r_daps_file(u_char8 *str, u_int16 p_adres){
-    file my_files[32];
+    file my_files[64];
     load_table_files(my_files);
     daps new_daps;
     for(u_char8 f = 0; f < 32; f++){
         if(cmpstr(str, my_files[f].name) == 0){
-            new_daps = create_daps( my_files[f].num_sectors, p_adres, my_files[f].sector);
+            new_daps = create_daps( my_files[f].num_clusters * 2, p_adres, my_files[f].cluster * 2);
             new_daps.data_file = my_files[f];
             return new_daps;
         }

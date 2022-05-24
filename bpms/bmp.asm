@@ -1,2 +1,2 @@
 main: file 'test_bmp.bmp'
-times(4*512-($-main)) db 0
+times(2*2*512-($-main)) db 0

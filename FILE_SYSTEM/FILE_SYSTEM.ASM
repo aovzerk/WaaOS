@@ -1,6 +1,12 @@
 files:
 
-point = 6
+point = 1
+
+kernel:
+size = 2
+db 1,0,size,point,"kernel"
+point = point + size
+times(16-($-kernel)) db 0
 
 hello_world:
 size = 1
@@ -10,26 +16,26 @@ times(16-($-hello_world)) db 0
 
 
 hello2:
-size = 6
+size = 3
 db 1,0,size,point,"hello2"
 point = point + size
 times(16-($-hello2)) db 0
 
 ls2:
-size = 6
+size = 3
 db 1,0,size,point,"ls2"
 point = point + size
 times(16-($-ls2)) db 0
 
 calc:
-size = 7
+size = 4
 db 1,0,size,point,"calc"
 point = point + size
 times(16-($-calc)) db 0
 
 
 f_info:
-size = 11
+size = 6
 db 1,0,size,point,"f_info"
 point = point + size
 times(16-($-f_info)) db 0
@@ -42,45 +48,45 @@ point = point + size
 times(16-($-txt)) db 0
 
 gui2:
-size = 11
+size = 64
 db 1,0,size,point,"gui2"
 point = point + size
 times(16-($-gui2)) db 0
 
 poff:
-size = 5
+size = 3
 db 1,0,size,point,"poweroff"
 point = point + size
 times(16-($-poff)) db 0
 
 cmd:
-size = 11
+size = 6
 db 1,0,size,point,"cmd"
 point = point + size
 times(16-($-cmd)) db 0
 
 d_bmp:
-size = 127
+size = 64
 db 1,0,size,point,"d_bmp"
 point = point + size
 times(16-($-d_bmp)) db 0
 
 test_bmp:
-size = 4
+size = 2
 db 3,0,size,point,"test_bmp"
 point = point + size
 times(16-($-test_bmp)) db 0
 
 test2_bmp:
-size = 4
+size = 2
 db 3,0,size,point,"test2_bmp"
 point = point + size
 times(16-($-test2_bmp)) db 0
 
 test3_bmp:
-size = 97
+size = 49
 db 3,0,size,point,"test3_bmp"
 point = point + size
 times(16-($-test3_bmp)) db 0
 
-times(512-($-files)) db 0
+times(1024-($-files)) db 0

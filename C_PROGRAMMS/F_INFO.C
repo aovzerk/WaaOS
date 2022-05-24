@@ -24,7 +24,7 @@ void main(u_char8 *args)
         print((u_char8 *)"FILE NOT FOUND", Red);
         return;
     } else {
-        f_string num_sectors = convert_to_string(daps_file.p_n_setors);
+        f_string num_sectors = convert_to_string(daps_file.p_n_sectors);
         f_string first_sector = convert_to_string(daps_file.sector);
         print(new_line, Black);
         print((u_char8 *) "File: ", Light_Grey);
@@ -41,7 +41,7 @@ void main(u_char8 *args)
         if(daps_file.data_file.type == 1){
             print_nl((u_char8 *) "Type: execute", Red);
         } else if(daps_file.data_file.type == 2){
-            daps_file.p_n_setors = 1;
+            daps_file.p_n_sectors = 1;
             load_daps(&daps_file);
             print_nl((u_char8 *) "Type: text", Green);
             print_nl((u_char8 *) "first 512 byte of file:", Light_Grey);
@@ -49,7 +49,7 @@ void main(u_char8 *args)
             print(file_data, Light_Grey);
             print((u_char8 *) "\n\r=========================", Red);
         } else if(daps_file.data_file.type == 3){
-            daps_file.p_n_setors = 1;
+            daps_file.p_n_sectors = 1;
             load_daps(&daps_file);
             print_nl((u_char8 *) "Type: image", Cyan);
         }

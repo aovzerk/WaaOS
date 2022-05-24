@@ -169,7 +169,7 @@ ret
 ;-------------------Поиск адреса файла------------------------------------------------------------------------------------------
 
 ;-|-in - ds:bx=tableFiles, ds:di=flename
-; |-out - ch-dorogka cl=sector, al=numSectors ah = type
+; |-out - ch-dorogka cl=first clister, al=nums clusters ah = type
 ; |-except - not found - ax=0, cx=0
 F_SEACH_FILE:
 jmp startpfseachFile
@@ -178,7 +178,7 @@ jmp startpfseachFile
 	pfseachFiledisave: db 0,0
 	startpfseachFile:
 	xor cx,cx
-	mov cl,32
+	mov cl,64
 	add bx,4
 	mov [pfseachFiledisave],di
 	startSeach:
@@ -225,11 +225,14 @@ F_LOAD_FILE:
 ret
 
 ;-------------------Загрузка таблицы файлов-------------------------------------------------------------------------------------
-;-|-in - ds:si - daps
+;-|-in - ds:si - daps bx-metka
 ; |-out - (load file table on ram)
 F_LOAD_TABLE_FILES:
+	push es
+	pop ax
 	mov di,F_LOAD_TABLE_FILES_DAPS_TABEL_FILES
 	mov [di + 4], bx
+	mov [di + 6], ax
 	push cs
 	pop ds
 	mov si,F_LOAD_TABLE_FILES_DAPS_TABEL_FILES
@@ -238,7 +241,7 @@ ret
 F_LOAD_TABLE_FILES_DAPS_TABEL_FILES:
     db 16;const paksize
     db 0;null
-    db 1;кол-во секторов
+    db 2;кол-во секторов
     db 0;null
     dw 0;смещение
     dw 0;сегмент

@@ -30,6 +30,8 @@ jmp MAIN
 
 START_PROGRAMM:
     mov si, DAPS_RUNTIME_FILE
+    add al,al
+    add cl,cl
     mov [si + 2], al
     mov [si + 8], cl
     LOAD_DAPS DAPS_RUNTIME_FILE
