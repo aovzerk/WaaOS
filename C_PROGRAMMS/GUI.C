@@ -56,7 +56,7 @@ void print_selected(file *files, u_char8 selected){
 }
 void clear_info(){   //------------------------------------------------------
     u_char8 empty[] = "                                                     ";
-    for(u_char8 i = 2; i < 29; i++){
+    for(u_char8 i = 2; i < 17; i++){
         set_cursor(i, 26);
         print(empty, Black);
     }
