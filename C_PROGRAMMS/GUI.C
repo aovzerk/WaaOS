@@ -148,6 +148,7 @@ void main(void)
             if(my_files[selected_file].type == 1){
                 daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x07E00);
                 clear_Screen();
+                save_info_file(daps_file.data_file.num_clusters);
                 start_programm(&daps_file, 0);
             } else if(my_files[selected_file].type == 3){
                 daps daps_file = get_r_daps_file((u_char8 *)"d_bmp", (u_int16) 0x07E00);
@@ -157,6 +158,7 @@ void main(void)
                 for(u_char8 i = 6; i < 18; i++){
                     args_for_d_bmp[i] = my_files[selected_file].name[i - 6];
                 }
+                save_info_file(daps_file.data_file.num_clusters);
                 start_programm(&daps_file, args_for_d_bmp);
             }
         }

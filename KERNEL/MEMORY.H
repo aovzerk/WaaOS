@@ -26,3 +26,15 @@ u_char8 *malloc(u_long_int user_size){
     addres = size + addres + 1;
     return addres;
 }
+void save_info_file(u_char8 size){
+    asm volatile("pusha");
+    asm volatile(
+        "mov %0, %%bl\n"
+        "mov $0x23, %%ah\n"
+        "int $0x90\n"
+        :
+        : "m"(size)
+        :
+    );
+    asm volatile("popa");
+}
