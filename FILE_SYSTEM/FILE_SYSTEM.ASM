@@ -48,7 +48,7 @@ point = point + size
 times(16-($-txt)) db 0
 
 gui2:
-size = 64
+size = 6
 db 1,0,size,point,"gui2"
 point = point + size
 times(16-($-gui2)) db 0
@@ -66,7 +66,7 @@ point = point + size
 times(16-($-cmd)) db 0
 
 d_bmp:
-size = 64
+size = 6
 db 1,0,size,point,"d_bmp"
 point = point + size
 times(16-($-d_bmp)) db 0

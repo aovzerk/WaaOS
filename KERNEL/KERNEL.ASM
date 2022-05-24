@@ -30,6 +30,8 @@ jmp MAIN
 
 START_PROGRAMM:
     mov si, DAPS_RUNTIME_FILE
+    mov di,SIZE_RUN_PROGRAMM
+    mov [di], al
     add al,al
     add cl,cl
     mov [si + 2], al
@@ -70,6 +72,7 @@ ERROR: string "Command not found :("
 CMD: string "cmd"
 INPUT_STR: string "user:>"
 BOOT_DISK: db 0
+SIZE_RUN_PROGRAMM: db 6
 BUFFER: db 13 dup(0)
 TMP: db 255 dup(0)
 TABLE_FILES:

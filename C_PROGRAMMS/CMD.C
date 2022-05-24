@@ -6,6 +6,18 @@ void clear_str_file_name(u_char8 *str, u_char8 len){
         str[i] = 0;
     }
 }
+void save_info_file(u_char8 size){
+    asm volatile("pusha");
+    asm volatile(
+        "mov %0, %%bl\n"
+        "mov $0x23, %%ah\n"
+        "int $0x90\n"
+        :
+        : "m"(size)
+        :
+    );
+    asm volatile("popa");
+}
 void main(void)
 {
     u_char8 user[] = "user:>";
@@ -31,6 +43,7 @@ void main(void)
             daps daps_file = get_r_daps_file(file_name, (u_int16) 0x07E00);
             print(new_line, Black);
             if(daps_file.p_empty != 1){
+                save_info_file(daps_file.data_file.num_clusters);
                 start_programm(&daps_file, user_guffer.data);
             } else {
                 print(not_found, Red);

@@ -96,6 +96,12 @@ je HPOWER_OFF
 cmp ah,22h
 je HGET_PIXEL_COLOR
 
+cmp ah,23h
+je HSAVE_SIZE_RUN_PROGRAMM
+
+cmp ah,24h
+je HGET_SIZE_RUN_PROGRAMM
+
 HF_SET_VIDEO:
     call F_SET_VIDEO
 iret
@@ -236,3 +242,12 @@ HF_LOAD_FILE_AND_START:
     xor bx,bx
     xor cx,cx
     jmp 0000:07E00h
+
+HSAVE_SIZE_RUN_PROGRAMM:
+    mov di,SIZE_RUN_PROGRAMM
+    mov [di],bl
+iret
+HGET_SIZE_RUN_PROGRAMM:
+    mov di,SIZE_RUN_PROGRAMM
+    mov bl,[di]
+iret

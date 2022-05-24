@@ -2,6 +2,7 @@
 
 #include "BASE_LIB.H"
 #include "GRAPHICS.H"
+#include "MEMORY.H"
 void print_wall(u_char8 x, u_char8 y){
     set_cursor(x, y);
     u_char8 hello = '-';
@@ -61,11 +62,11 @@ void clear_info(){   //------------------------------------------------------
         print(empty, Black);
     }
 }
-u_char8 file_data[51200];
-// u_char8 file_data_bmp[51200];
+
 void print_info_file(file *files, u_char8 selected){
     clear_info();
     set_cursor(2, 28);
+    u_char8 *file_data = malloc(51200);
     daps daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data);
     f_string num_sectors = convert_to_string(daps_file.p_n_sectors);
     f_string first_sector = convert_to_string(daps_file.sector);

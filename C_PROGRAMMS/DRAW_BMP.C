@@ -2,11 +2,10 @@
 
 #include "BASE_LIB.H"
 #include "GRAPHICS.H"
-
-u_char8 data_file[51200];
+#include "MEMORY.H"
 void main(u_char8 *args)
 {
-    
+    u_char8 *data_file = malloc(51200);
     u_char8 my_args[255] = "1";
     copy_data(my_args, args, 254);
     daps my_daps = get_r_daps_file(my_args + 6, (u_int16)data_file);
