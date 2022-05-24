@@ -5,7 +5,7 @@
 void print_wall(u_char8 x, u_char8 y){
     set_cursor(x, y);
     u_char8 hello = '-';
-    for(u_char8 i = y; i < 79; i++){
+    for(u_char8 i = y; i < 81; i++){
         print_char(hello, Light_Grey);
         set_cursor(x, i);
     }
@@ -13,19 +13,26 @@ void print_wall(u_char8 x, u_char8 y){
 void print_wall2(u_char8 x, u_char8 y){
     set_cursor(x, y);
     u_char8 hello = '|';
-    for(u_char8 i = x; i < 23; i++){
+    for(u_char8 i = x; i < 30; i++){
         print_char(hello, Light_Grey);
         set_cursor(i, y);
     }
 }
+void print_wall3(u_char8 x, u_char8 y){
+    set_cursor(x, y);
+    u_char8 hello = '-';
+    for(u_char8 i = y; i < 5 + y; i++){
+        print_char(hello, Light_Grey);
+        set_cursor(x, i);
+    }
+}
 void print_border(){
-    //clear_Screen();
-    set_video(0x10);
     print_wall(0,0);
     print_wall2(1,0);
-    print_wall(22, 0);
-    print_wall2(1,77);
+    print_wall(29, 0);
+    print_wall2(1,79);
     print_wall2(1, 25);
+    print_wall3(4, 26);
     
 }
 void print_selected(file *files, u_char8 selected){
@@ -47,59 +54,67 @@ void print_selected(file *files, u_char8 selected){
         }
     }
 }
-void clear_info(){
-    u_char8 empty[] = "                          ";
-    for(u_char8 i = 2; i < 20; i++){
-        set_cursor(i, 30);
+void clear_info(){   //------------------------------------------------------
+    u_char8 empty[] = "                                                     ";
+    for(u_char8 i = 2; i < 29; i++){
+        set_cursor(i, 26);
         print(empty, Black);
     }
 }
-u_char8 file_data[512];
-u_char8 file_data_bmp[51200];
+u_char8 file_data[51200];
+// u_char8 file_data_bmp[51200];
 void print_info_file(file *files, u_char8 selected){
     clear_info();
-    set_cursor(2, 30);
+    set_cursor(2, 28);
     daps daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data);
     f_string num_sectors = convert_to_string(daps_file.p_n_sectors);
     f_string first_sector = convert_to_string(daps_file.sector);
     print((u_char8 *) "File: ", Light_Grey);
     print(files[selected].name, Light_Grey);
-    set_cursor(3, 30);
-    print((u_char8 *) "Num. Sector: ", Light_Grey);
+    set_cursor(2, 60);
+    print((u_char8 *) "Num. Sector:  ", Light_Grey);
     print(num_sectors.data, Light_Grey);
-    set_cursor(4, 30);
+    set_cursor(3, 60);
     print((u_char8 *) "First Sector: ", Light_Grey);
     print(first_sector.data, Light_Grey);
-    set_cursor(5, 30);
+    set_cursor(5, 26);
+    print((u_char8 *) "-----------------------------------------------------", Light_Grey);
+    set_cursor(3, 28);
+    print((u_char8 *) "Type: ", Light_Grey);
     if(daps_file.data_file.type == 1){
-        print((u_char8 *) "Type: execute", Red);
+        print((u_char8 *) "execute", Red);
     } else if(daps_file.data_file.type == 2){
+        print((u_char8 *) "text", Green);
         daps_file.p_n_sectors = 1;
         load_daps(&daps_file);
-        print((u_char8 *) "Type: text", Green);
-        set_cursor(6, 30);
+        set_cursor(7, 28);
         print((u_char8 *) "first 512 byte of file:", Light_Grey);
-        set_cursor(7, 30);
+        set_cursor(8, 28);
         print((u_char8 *) "=========================", Red);
-        set_cursor(8, 30);
+        set_cursor(9, 28);
         print(file_data, Light_Grey);
-        set_cursor(9, 30);
+        set_cursor(10, 28);
         print((u_char8 *) "=========================", Red);
         
     }else if(daps_file.data_file.type == 3){
-        daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data_bmp);
+        print((u_char8 *) "image", Cyan);
+        u_char8 n_sectors = daps_file.p_n_sectors;
+        daps_file.p_n_sectors = 1;
         load_daps(&daps_file);
-        u_char8 w = file_data_bmp[18];
-        u_char8 h = file_data_bmp[22];
-        f_string w_str = convert_to_string(w);
-        f_string h_str = convert_to_string(h);
-        print((u_char8 *) "size: ", Light_Grey);
-        print(w_str.data, Light_Grey);
-        print((u_char8 *)"x", Light_Grey);
-        print(h_str.data, Light_Grey);
+        u_int16 w;
+        u_int16 h;
+        get_res_image(file_data, &w, &h);
         set_cursor(6, 30);
-        print_nl((u_char8 *) "Type: image", Cyan);
-        draw_image_bmp(file_data_bmp, 110,240);
+        print((u_char8 *)"res:     x    ",Light_Grey);
+        set_cursor(6, 35);
+        print(convert_to_string(w).data,Light_Grey);
+        set_cursor(6, 41);
+        print(convert_to_string(h).data,Light_Grey);
+        if(w * h <= 16384){
+            daps_file.p_n_sectors = n_sectors;
+            load_daps(&daps_file);
+            draw_image_bmp(file_data, 250, 130);
+        }
     }
 }
 u_char8 get_files_len(file *files){
@@ -111,7 +126,7 @@ u_char8 get_files_len(file *files){
 }
 void main(void)
 {
-    set_video(0x10);
+    set_video(0x12);
     print_border();
     file my_files[64];
     u_char8 selected_file = 0;
