@@ -4,7 +4,7 @@ point = 1
 
 kernel:
 size = 2
-db 1,0,size,point,"kernel"
+db 0,0,size,point,"kernel"
 point = point + size
 times(16-($-kernel)) db 0
 
