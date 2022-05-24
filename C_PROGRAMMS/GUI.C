@@ -89,8 +89,17 @@ void print_info_file(file *files, u_char8 selected){
     }else if(daps_file.data_file.type == 3){
         daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data_bmp);
         load_daps(&daps_file);
-        draw_image_bmp(file_data_bmp, 110,240);
+        u_char8 w = file_data_bmp[18];
+        u_char8 h = file_data_bmp[22];
+        f_string w_str = convert_to_string(w);
+        f_string h_str = convert_to_string(h);
+        print((u_char8 *) "size: ", Light_Grey);
+        print(w_str.data, Light_Grey);
+        print((u_char8 *)"x", Light_Grey);
+        print(h_str.data, Light_Grey);
+        set_cursor(6, 30);
         print_nl((u_char8 *) "Type: image", Cyan);
+        draw_image_bmp(file_data_bmp, 110,240);
     }
 }
 u_char8 get_files_len(file *files){
