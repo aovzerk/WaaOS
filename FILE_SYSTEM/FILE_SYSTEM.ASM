@@ -21,11 +21,11 @@ db 1,0,size,point,"hello2"
 point = point + size
 times(16-($-hello2)) db 0
 
-ls2:
+ls:
 size = 3
-db 1,0,size,point,"ls2"
+db 1,0,size,point,"ls"
 point = point + size
-times(16-($-ls2)) db 0
+times(16-($-ls)) db 0
 
 calc:
 size = 4
@@ -47,11 +47,11 @@ db 2,0,size,point,"txt"
 point = point + size
 times(16-($-txt)) db 0
 
-gui2:
-size = 6
-db 1,0,size,point,"gui2"
+gui:
+size = 7
+db 1,0,size,point,"gui"
 point = point + size
-times(16-($-gui2)) db 0
+times(16-($-gui)) db 0
 
 poff:
 size = 3

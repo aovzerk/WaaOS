@@ -1,8 +1,7 @@
-
-
 #include "BASE_LIB.H"
 #include "GRAPHICS.H"
 #include "MEMORY.H"
+
 void print_wall(u_char8 x, u_char8 y){
     set_cursor(x, y);
     u_char8 hello = '-';
@@ -14,7 +13,7 @@ void print_wall(u_char8 x, u_char8 y){
 void print_wall2(u_char8 x, u_char8 y){
     set_cursor(x, y);
     u_char8 hello = '|';
-    for(u_char8 i = x; i < 30; i++){
+    for(u_char8 i = x; i < 25; i++){
         print_char(hello, Light_Grey);
         set_cursor(i, y);
     }
@@ -29,12 +28,11 @@ void print_wall3(u_char8 x, u_char8 y){
 }
 void print_border(){
     print_wall(0,0);
+    print_wall(24, 0);
     print_wall2(1,0);
-    print_wall(29, 0);
     print_wall2(1,79);
     print_wall2(1, 25);
     print_wall3(4, 26);
-    
 }
 void print_selected(file *files, u_char8 selected){
     u_char8 select[] = "-> ";
@@ -57,7 +55,7 @@ void print_selected(file *files, u_char8 selected){
 }
 void clear_info(){   //------------------------------------------------------
     u_char8 empty[] = "                                                     ";
-    for(u_char8 i = 2; i < 17; i++){
+    for(u_char8 i = 2; i < 19; i++){
         set_cursor(i, 26);
         print(empty, Black);
     }
@@ -100,7 +98,7 @@ void print_info_file(file *files, u_char8 selected){
     }else if(daps_file.data_file.type == 3){
         print((u_char8 *) "image", Cyan);
         u_char8 n_sectors = daps_file.p_n_sectors;
-        daps_file.p_n_sectors = 1;
+        daps_file.p_n_sectors = 2;
         load_daps(&daps_file);
         u_int16 w;
         u_int16 h;
@@ -125,9 +123,13 @@ u_char8 get_files_len(file *files){
         }
     }
 }
+void update(file *my_files, u_char8 selected_file){
+        print_selected(my_files, selected_file);
+        print_info_file(my_files, selected_file);
+}
 void main(void)
 {
-    set_video(0x12);
+    set_video(0x10);
     print_border();
     file my_files[64];
     u_char8 selected_file = 0;
@@ -140,10 +142,12 @@ void main(void)
         set_cursor(25, 0);
         u_char8 my_char = get_scan_code_key();
         
-        if(my_char == 0x50){
-            if(selected_file < num_files - 1) selected_file++;
-        } else if(my_char == 0x48){
-            if(selected_file != 0) selected_file--;
+        if((my_char == 0x50) && (selected_file < num_files - 1)){
+            selected_file++;
+            update(my_files, selected_file);
+        } else if((my_char == 0x48) && (selected_file > 0)){
+            selected_file--;
+            update(my_files, selected_file);
         }else if(my_char == 28){
             if(my_files[selected_file].type == 1){
                 daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x07E00);
@@ -162,8 +166,6 @@ void main(void)
                 start_programm(&daps_file, args_for_d_bmp);
             }
         }
-        print_selected(my_files, selected_file);
-        print_info_file(my_files, selected_file);
     }
         
 }
