@@ -1,5 +1,5 @@
-#define u_int16 unsigned short int
 #define u_char8 unsigned char
+#define u_int16 unsigned short int
 #define u_long_int unsigned long int
 #define u_long_int64 unsigned long long int
 #define White 15

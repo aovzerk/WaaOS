@@ -1,7 +1,7 @@
 
 
-#include "BASE_LIB.H"
-#include "GRAPHICS.H"
+#include "LIB/BASE_LIB.H"
+#include "LIB/GRAPHICS/IMG/BMP.H"
 #include "MEMORY.H"
 void main(u_char8 *args)
 {
