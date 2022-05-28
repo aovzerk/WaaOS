@@ -11,6 +11,7 @@ fasm C_PROGRAMMS/GUI.ASM
 fasm C_PROGRAMMS/CMD.ASM
 fasm C_PROGRAMMS/POWEROFF.ASM
 fasm C_PROGRAMMS/DRAW_BMP.ASM
+fasm C_PROGRAMMS/VMG.ASM
 fasm TXT/T.ASM
 fasm bpms/bmp3.asm
 fasm bpms/bmp.asm

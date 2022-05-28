@@ -11,6 +11,7 @@
         "GUI.C": "cpp",
         "CMD.C": "cpp",
         "POWEROFF.C": "cpp",
-        "draw_bmp.C": "cpp"
+        "draw_bmp.C": "cpp",
+        "VMG.C": "cpp"
     }
 }

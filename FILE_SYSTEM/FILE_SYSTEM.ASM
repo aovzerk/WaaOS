@@ -14,7 +14,6 @@ db 1,0,size,point,"Hello World"
 point = point + size
 times(16-($-hello_world)) db 0
 
-
 hello2:
 size = 3
 db 1,0,size,point,"hello2"
@@ -33,13 +32,11 @@ db 1,0,size,point,"calc"
 point = point + size
 times(16-($-calc)) db 0
 
-
 f_info:
 size = 6
 db 1,0,size,point,"f_info"
 point = point + size
 times(16-($-f_info)) db 0
-
 
 txt:
 size = 1
@@ -88,5 +85,11 @@ size = 49
 db 3,0,size,point,"test3_bmp"
 point = point + size
 times(16-($-test3_bmp)) db 0
+
+vmg:
+size = 1
+db 1,0,size,point,"vmg"
+point = point + size
+times(16-($-vmg)) db 0
 
 times(1024-($-files)) db 0
