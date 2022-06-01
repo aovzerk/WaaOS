@@ -87,7 +87,7 @@ point = point + size
 times(16-($-test3_bmp)) db 0
 
 vmg:
-size = 1
+size = 3
 db 1,0,size,point,"vmg"
 point = point + size
 times(16-($-vmg)) db 0
