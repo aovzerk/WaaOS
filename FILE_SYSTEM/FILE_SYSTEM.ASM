@@ -80,11 +80,11 @@ db 3,0,size,point,"test2_bmp"
 point = point + size
 times(16-($-test2_bmp)) db 0
 
-test3_bmp:
-size = 49
-db 3,0,size,point,"test3_bmp"
-point = point + size
-times(16-($-test3_bmp)) db 0
+; test3_bmp:
+; size = 49
+; db 3,0,size,point,"test3_bmp"
+; point = point + size
+; times(16-($-test3_bmp)) db 0
 
 vmg:
 size = 3

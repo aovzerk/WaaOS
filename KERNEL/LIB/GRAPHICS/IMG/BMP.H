@@ -1,4 +1,4 @@
-#ifndef u_char_8
+#ifndef u_char8
 #define u_char8 unsigned char
 #define u_int16 unsigned short int
 #define u_long_int unsigned long int

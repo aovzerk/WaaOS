@@ -1,11 +1,16 @@
 #include "LIB/BASE_LIB.H"
-#include "LIB/GRAPHICS/GRAPHICS.H"
-void main(void){
+#include "LIB/GRAPHICS/VGA/VESA.H"
+// #include "LIB/MEMORY.H"
+
+void main(){
     // for (u_char8 i = 0; i < 255; i++)
     // {
         
     // }
-    u_char8 mode = 0;
-    mode = get_video_mode();
-    print(convert_to_string((u_long_int64)mode).data, White);
+    vbeInfoBlock info;
+    info = vbeInfoGet();
+    // u_char8 name[5] = {info.vbeSignature[0],info.vbeSignature[1],info.vbeSignature[2],info.vbeSignature[3],0};
+    print_nl(info.vbeSignature, White);
+    print_nl(convert_to_string(info.vbeVersion).data, White);
+    // asm("int $0x91\n");
 }

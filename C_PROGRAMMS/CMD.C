@@ -1,7 +1,7 @@
 
 
 #include "LIB/BASE_LIB.H"
-#include "MEMORY.H"
+#include "LIB/MEMORY.H"
 void clear_str_file_name(u_char8 *str, u_char8 len){
     for(u_int16 i = 0; i < len; i++){
         str[i] = 0;

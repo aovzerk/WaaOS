@@ -2,7 +2,7 @@
 
 #include "LIB/BASE_LIB.H"
 #include "LIB/GRAPHICS/IMG/BMP.H"
-#include "MEMORY.H"
+#include "LIB/MEMORY.H"
 void main(u_char8 *args)
 {
     u_char8 *data_file = malloc(51200);

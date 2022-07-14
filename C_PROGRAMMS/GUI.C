@@ -1,6 +1,6 @@
 #include "LIB/BASE_LIB.H"
 #include "LIB/GRAPHICS/IMG/BMP.H"
-#include "MEMORY.H"
+#include "LIB/MEMORY.H"
 
 void print_wall(u_char8 x, u_char8 y){
     set_cursor(x, y);
