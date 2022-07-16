@@ -1,6 +1,6 @@
-u_char8 *malloc(u_long_int user_size){
-    u_long_int MAX = 653312;
-    u_long_int size = 0;
+u_char8 *malloc(u_int32 user_size){
+    u_int32 MAX = 653312;
+    u_int32 size = 0;
     u_char8 *addres = (u_char8 *)0x07E00;
     asm volatile("pusha");
     asm volatile(
@@ -19,7 +19,7 @@ u_char8 *malloc(u_long_int user_size){
     if(user_size > MAX){
         return addres;
     }
-    u_long_int get_memory = MAX - size;
+    u_int32 get_memory = MAX - size;
     if(get_memory < user_size){
         return addres;
     }

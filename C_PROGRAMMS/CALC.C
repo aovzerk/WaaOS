@@ -13,8 +13,8 @@ void main(void)
     print((u_char8 *) "Input operand:> ", White);
     f_string my_op = input();
     print(new_line, Black);
-    u_long_int my_num1 = convert_to_number(my_str);
-    u_long_int my_num2 = convert_to_number(my_str2);
+    u_int32 my_num1 = convert_str_to_dec(my_str);
+    u_int32 my_num2 = convert_str_to_dec(my_str2);
     
     switch (my_op.data[0])
     {
@@ -34,7 +34,7 @@ void main(void)
             break;
     }
     
-    f_string my_str3 = convert_to_string(my_num1);
+    f_string my_str3 = convert_dec_to_str(my_num1);
     print((u_char8 *)"Result: ", White);
     print(my_str3.data, White);
 }

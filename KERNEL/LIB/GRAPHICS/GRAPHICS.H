@@ -1,7 +1,7 @@
 #ifndef u_char8
 #define u_char8 unsigned char
-#define u_int16 unsigned short int
-#define u_long_int unsigned long int
+#define u_short16 unsigned short int
+#define u_int32 unsigned long int
 #define u_long_int64 unsigned long long int
 #endif
 void set_video_mode(u_char8 mode){

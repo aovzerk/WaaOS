@@ -1,6 +1,6 @@
 #define u_char8 unsigned char
-#define u_int16 unsigned short int
-#define u_long_int unsigned long int
+#define u_short16 unsigned short int
+#define u_int32 unsigned long int
 #define u_long_int64 unsigned long long int
 #define White 15
 #define Light_Brown 14
@@ -40,8 +40,8 @@ struct daps
     u_char8 p_empty = 0;
     u_char8 p_n_sectors;
     u_char8 p_empty2 = 0;
-    u_int16 p_adres;
-    u_int16 p_segment;
+    u_short16 p_adres;
+    u_short16 p_segment;
     u_long_int64 sector;
     file data_file;
 };
@@ -54,7 +54,7 @@ struct f_string
 
 f_string clear_str(){
     f_string str;
-    for(u_int16 i = 0; i < 255; i++){
+    for(u_short16 i = 0; i < 255; i++){
         str.data[i] = 0;
     }
     return str;
@@ -74,7 +74,7 @@ u_char8 cmpstr(u_char8 *str1, u_char8 *str2){
     return 0;
 }
 f_string calc_len(f_string str){
-    for(u_int16 i = 0; i < 255; i++){
+    for(u_short16 i = 0; i < 255; i++){
         if(str.data[i] == 0){ 
             
             str.len = i;
@@ -93,12 +93,12 @@ void Reverse(u_char8* begin, u_char8* end, u_char8 n)
         Reverse(begin + 1, end - 1, n - 2);
     }
 }
-f_string convert_to_string(u_long_int num){
+f_string convert_dec_to_str(u_int32 num){
     f_string new_str = clear_str();
-    u_int16 i = 0;
+    u_short16 i = 0;
     for(; i < 255; i++){
         if(num / 10 == 0 && num % 10 == 0) break;
-        u_int16 tmp = num % 10;
+        u_short16 tmp = num % 10;
         num = num / 10;
         new_str.data[i] = tmp + 0x30;
         
@@ -108,13 +108,59 @@ f_string convert_to_string(u_long_int num){
     new_str = calc_len(new_str);
     return new_str;
 }
-u_long_int convert_to_number(f_string str){
-    u_long_int num = 0;
-    for(u_int16 i = 0; i < 255; i++){
+f_string convert_hex_to_str(u_int32 num){
+    f_string new_str = clear_str();
+    u_short16 i = 0;
+    for(; i < 255; i++){
+        if(num / 16 == 0 && num % 16 == 0) break;
+        u_short16 tmp = num % 16;
+        num = num / 16;
+        new_str.data[i] = tmp + 0x30;
+        
+    }
+    Reverse(new_str.data,  new_str.data + i - 1, i);
+    new_str.data[i] = 0;
+    new_str = calc_len(new_str);
+    return new_str;
+}
+f_string convert_bin_to_str(u_int32 num){
+    f_string new_str = clear_str();
+    u_short16 i = 0;
+    for(; i < 255; i++){
+        if(num / 2 == 0 && num % 2 == 0) break;
+        u_short16 tmp = num % 2;
+        num = num / 2;
+        new_str.data[i] = tmp + 0x30;
+        
+    }
+    Reverse(new_str.data,  new_str.data + i - 1, i);
+    new_str.data[i] = 0;
+    new_str = calc_len(new_str);
+    return new_str;
+}
+u_int32 convert_str_to_dec(f_string str){
+    u_int32 num = 0;
+    for(u_short16 i = 0; i < 255; i++){
         if(str.data[i] == 0) break;
         num = (num + (str.data[i] - 0x30)) * 10;
     }
     return num / 10;
+}
+u_int32 convert_str_to_hex(f_string str){
+    u_int32 num = 0;
+    for(u_short16 i = 0; i < 255; i++){
+        if(str.data[i] == 0) break;
+        num = (num + (str.data[i] - 0x30)) * 16;
+    }
+    return num / 16;
+}
+u_int32 convert_str_to_bin(f_string str){
+    u_int32 num = 0;
+    for(u_short16 i = 0; i < 255; i++){
+        if(str.data[i] == 0) break;
+        num = (num + (str.data[i] - 0x30)) * 2;
+    }
+    return num / 2;
 }
 void print(u_char8 *string, u_char8 color)
 {
@@ -150,7 +196,7 @@ void exit()
     asm (".code16gcc\n"
      "int   $0x91\n");
 }
-void input_no_format(u_char8 *str, u_int16 len){
+void input_no_format(u_char8 *str, u_short16 len){
     asm volatile("pusha");
     asm volatile(
 
@@ -195,7 +241,7 @@ void load_table_files(file *files){
     );
     asm volatile("popa");
 }
-daps create_daps(u_char8 p_n_sectors, u_int16 p_adres, u_long_int64 sector){
+daps create_daps(u_char8 p_n_sectors, u_short16 p_adres, u_long_int64 sector){
     daps new_daps;
     new_daps.p_n_sectors = p_n_sectors;
     new_daps.p_adres = p_adres;
@@ -240,7 +286,7 @@ u_char8 load_daps(daps *new_daps){
     asm volatile("popa");
     return status;
 }
-daps get_r_daps_file(u_char8 *str, u_int16 p_adres){
+daps get_r_daps_file(u_char8 *str, u_short16 p_adres){
     file my_files[64];
     load_table_files(my_files);
     daps new_daps;

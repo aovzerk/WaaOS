@@ -8,7 +8,7 @@ void main(u_char8 *args)
     u_char8 *data_file = malloc(51200);
     u_char8 my_args[255] = "1";
     copy_data(my_args, args, 254);
-    daps my_daps = get_r_daps_file(my_args + 6, (u_int16)data_file);
+    daps my_daps = get_r_daps_file(my_args + 6, (u_short16)data_file);
     if(my_daps.p_empty == 1 || my_daps.data_file.type != 3 || my_args[6] == 0){
         print(new_line, Black);
         print((u_char8 *)"FILE NOT FOUND OR INVALID TYPE", Red);

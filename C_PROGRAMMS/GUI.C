@@ -65,9 +65,9 @@ void print_info_file(file *files, u_char8 selected){
     clear_info();
     set_cursor(2, 28);
     u_char8 *file_data = malloc(51200);
-    daps daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data);
-    f_string num_sectors = convert_to_string(daps_file.p_n_sectors);
-    f_string first_sector = convert_to_string(daps_file.sector);
+    daps daps_file = get_r_daps_file(files[selected].name, (u_short16) file_data);
+    f_string num_sectors = convert_dec_to_str(daps_file.p_n_sectors);
+    f_string first_sector = convert_dec_to_str(daps_file.sector);
     print((u_char8 *) "File: ", Light_Grey);
     print(files[selected].name, Light_Grey);
     set_cursor(2, 60);
@@ -100,15 +100,15 @@ void print_info_file(file *files, u_char8 selected){
         u_char8 n_sectors = daps_file.p_n_sectors;
         daps_file.p_n_sectors = 2;
         load_daps(&daps_file);
-        u_int16 w;
-        u_int16 h;
+        u_short16 w;
+        u_short16 h;
         get_res_image(file_data, &w, &h);
         set_cursor(6, 30);
         print((u_char8 *)"res:     x    ",Light_Grey);
         set_cursor(6, 35);
-        print(convert_to_string(w).data,Light_Grey);
+        print(convert_dec_to_str(w).data,Light_Grey);
         set_cursor(6, 41);
-        print(convert_to_string(h).data,Light_Grey);
+        print(convert_dec_to_str(h).data,Light_Grey);
         if(w * h <= 16384){
             daps_file.p_n_sectors = n_sectors;
             load_daps(&daps_file);
@@ -150,12 +150,12 @@ void main(void)
             update(my_files, selected_file);
         }else if(my_char == 28){
             if(my_files[selected_file].type == 1){
-                daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_int16) 0x07E00);
+                daps daps_file = get_r_daps_file(my_files[selected_file].name, (u_short16) 0x07E00);
                 clear_Screen();
                 save_info_file(daps_file.data_file.num_clusters);
                 start_programm(&daps_file, 0);
             } else if(my_files[selected_file].type == 3){
-                daps daps_file = get_r_daps_file((u_char8 *)"d_bmp", (u_int16) 0x07E00);
+                daps daps_file = get_r_daps_file((u_char8 *)"d_bmp", (u_short16) 0x07E00);
                 clear_Screen();
                 u_char8 args_for_d_bmp[40] = "d_bmp";
                 args_for_d_bmp[5] == 0;

@@ -15,13 +15,13 @@ point = point + size
 times(16-($-hello_world)) db 0
 
 hello2:
-size = 3
+size = 4
 db 1,0,size,point,"hello2"
 point = point + size
 times(16-($-hello2)) db 0
 
 ls:
-size = 3
+size = 4
 db 1,0,size,point,"ls"
 point = point + size
 times(16-($-ls)) db 0
@@ -51,7 +51,7 @@ point = point + size
 times(16-($-gui)) db 0
 
 poff:
-size = 3
+size = 4
 db 1,0,size,point,"poweroff"
 point = point + size
 times(16-($-poff)) db 0
@@ -87,7 +87,7 @@ times(16-($-test2_bmp)) db 0
 ; times(16-($-test3_bmp)) db 0
 
 vmg:
-size = 3
+size = 4
 db 1,0,size,point,"vmg"
 point = point + size
 times(16-($-vmg)) db 0

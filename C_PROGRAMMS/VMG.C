@@ -9,8 +9,22 @@ void main(){
     // }
     vbeInfoBlock info;
     info = vbeInfoGet();
-    // u_char8 name[5] = {info.vbeSignature[0],info.vbeSignature[1],info.vbeSignature[2],info.vbeSignature[3],0};
-    print_nl(info.vbeSignature, White);
-    print_nl(convert_to_string(info.vbeVersion).data, White);
+
+    print((u_char8 *)"   signature | ", White);
+    print_nl(info.signature, Light_Grey);
+
+    print((u_char8 *)"     version | ", White);
+    print_nl(convert_hex_to_str(info.version).data, Light_Grey);
+    
+    print((u_char8 *)"      memory | ", White);
+    print((u_char8 *)(info.video_memory), Light_Grey);
+    print_nl((u_char8 *)" KB", Light_Grey);
+
+    print((u_char8 *)"capabilities | ", White);
+    print_nl(convert_bin_to_str(info.capabilities).data, Light_Grey);
+    
+    print((u_char8 *)" video modes | ", White);
+    print_nl(get_real_addres(info.video_modes), Light_Grey);
+    // print_nl(convert_bin_to_str(info.capabilities).data, White);
     // asm("int $0x91\n");
 }

@@ -3,7 +3,7 @@
 #include "LIB/BASE_LIB.H"
 #include "LIB/MEMORY.H"
 void clear_str_file_name(u_char8 *str, u_char8 len){
-    for(u_int16 i = 0; i < len; i++){
+    for(u_short16 i = 0; i < len; i++){
         str[i] = 0;
     }
 }
@@ -30,7 +30,7 @@ void main(void)
             file_name[i] = user_guffer.data[i];
         }
         if(file_name[0] != ' ' && file_name[0] != 0){
-            daps daps_file = get_r_daps_file(file_name, (u_int16) 0x07E00);
+            daps daps_file = get_r_daps_file(file_name, (u_short16) 0x07E00);
             print(new_line, Black);
             if(daps_file.p_empty != 1){
                 save_info_file(daps_file.data_file.num_clusters);
