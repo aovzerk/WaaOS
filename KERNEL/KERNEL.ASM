@@ -67,7 +67,7 @@ DAPS_TABEL_FILES:
     dw TABLE_FILES;смещение
     dw 0;сегмент
     dq 1;начало
-HELLO_WORLD: string "WaaOS Loaded, Hello! =)"
+HELLO_WORLD: string "R-OS Loaded, Hello! =)"
 ERROR: string "Command not found :("
 CMD: string "cmd"
 INPUT_STR: string "user:>"
