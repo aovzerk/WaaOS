@@ -62,11 +62,10 @@ void clear_info(){   //------------------------------------------------------
         print(empty, Black);
     }
 }
-
+u_char8 *file_data;
 void print_info_file(file *files, u_char8 selected){
     clear_info();
     set_cursor(2, 28);
-    u_char8 *file_data = malloc(51200);
     daps daps_file = get_r_daps_file(files[selected].name, (u_int16) file_data);
     f_string num_sectors = convert_to_string(daps_file.p_n_sectors);
     f_string first_sector = convert_to_string(daps_file.sector);
@@ -125,8 +124,10 @@ u_char8 get_files_len(file *files){
         }
     }
 }
+
 void main(void)
 {
+    file_data = malloc(51200);
     set_video(0x12);
     print_border();
     file my_files[64];
