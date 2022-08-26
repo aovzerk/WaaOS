@@ -12,6 +12,7 @@ void main(void)
 {
     u_char8 user[] = "user:>";
     u_char8 not_found[] = "Command not found :(";
+    u_char8 not_exe[] = "File not executable :(";
     while (true)
     {
         print(new_line, Black);
@@ -32,6 +33,10 @@ void main(void)
         if(file_name[0] != ' ' && file_name[0] != 0){
             daps daps_file = get_r_daps_file(file_name, (u_int16) 0x07E00);
             print(new_line, Black);
+            if(daps_file.data_file.type != 1){
+                print(not_exe, Red);
+                continue;
+            }
             if(daps_file.p_empty != 1){
                 save_info_file(daps_file.data_file.num_clusters);
                 start_programm(&daps_file, user_guffer.data);
