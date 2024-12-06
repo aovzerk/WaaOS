@@ -14,3 +14,4 @@ DRAW_BMP: file 'C_PROGRAMMS/DRAW_BMP.BIN'
 BPM_FILE: file 'bpms/bmp.bin'
 BPM2_FILE: file 'bpms/bmp2.bin'
 BPM3_FILE: file 'bpms/bmp3.bin'
+times(1474560-($-boot)) db 0

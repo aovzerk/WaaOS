@@ -1,0 +1,1 @@
+genisoimage -quiet -V 'MYOS' -input-charset iso8859-1 -o myos.iso -b OS.IMG -hide OS.IMG ISO/
