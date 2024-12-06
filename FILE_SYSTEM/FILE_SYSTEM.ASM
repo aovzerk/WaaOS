@@ -16,26 +16,26 @@ times(16-($-hello_world)) db 0
 
 
 hello2:
-size = 3
+size = 4
 db 1,0,size,point,"hello2"
 point = point + size
 times(16-($-hello2)) db 0
 
 ls2:
-size = 3
+size = 4
 db 1,0,size,point,"ls2"
 point = point + size
 times(16-($-ls2)) db 0
 
 calc:
-size = 4
+size = 5
 db 1,0,size,point,"calc"
 point = point + size
 times(16-($-calc)) db 0
 
 
 f_info:
-size = 6
+size = 7
 db 1,0,size,point,"f_info"
 point = point + size
 times(16-($-f_info)) db 0
@@ -48,25 +48,25 @@ point = point + size
 times(16-($-txt)) db 0
 
 gui2:
-size = 6
+size = 8
 db 1,0,size,point,"gui2"
 point = point + size
 times(16-($-gui2)) db 0
 
 poff:
-size = 3
+size = 4
 db 1,0,size,point,"poweroff"
 point = point + size
 times(16-($-poff)) db 0
 
 cmd:
-size = 6
+size = 7
 db 1,0,size,point,"cmd"
 point = point + size
 times(16-($-cmd)) db 0
 
 d_bmp:
-size = 6
+size = 7
 db 1,0,size,point,"d_bmp"
 point = point + size
 times(16-($-d_bmp)) db 0
